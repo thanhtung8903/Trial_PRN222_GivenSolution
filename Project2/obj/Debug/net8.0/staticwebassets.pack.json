@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\PRN222_PE_SP25_Trial\\PaperNo_1\\All\\Trial_PRN222_GivenSolution\\Project2\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
+      "PackagePath": "staticwebassets\\js\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Id": "D:\\PRN222_PE_SP25_Trial\\PaperNo_1\\All\\Trial_PRN222_GivenSolution\\Project2\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "PackagePath": "staticwebassets\\js\\signalr\\dist\\browser\\signalr.min.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Project2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Project2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Project2.props",
+      "PackagePath": "build\\Project2.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Project2.props",
+      "PackagePath": "buildMultiTargeting\\Project2.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Project2.props",
+      "PackagePath": "buildTransitive\\Project2.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,2 @@
+wwwroot\js\signalr\dist\browser\signalr.js
+wwwroot\js\signalr\dist\browser\signalr.min.js

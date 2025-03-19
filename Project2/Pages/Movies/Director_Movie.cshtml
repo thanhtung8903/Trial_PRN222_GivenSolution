@@ -1,0 +1,105 @@
+﻿@page
+@model Project2.Pages.Movies.DirectorMovieModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies by Director</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-4">
+        <h1>List of Movies</h1>
+
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Directors</h2>
+                <ul class="list-group">
+                    @foreach (var director in Model.Directors)
+                    {
+                        <li class="list-group-item @(Model.SelectedDirectorId == director.Id ? "active" : "")">
+                            <a href="/Movies/Director_Movie?directorId=@director.Id" class="text-dark">
+                                @director.FullName
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-9">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>Release Date</th>
+                            <th>Description</th>
+                            <th>Language</th>
+                            <th>Director</th>
+                            <th>Producer</th>
+                            <th>Stars</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var movie in Model.Movies)
+                        {
+                            <tr id="movie-@movie.Id">
+                                <td>@movie.Title</td>
+                                <td>@movie.ReleaseDate?.ToString("MM/dd/yyyy")</td>
+                                <td>@movie.Description</td>
+                                <td>@movie.Language</td>
+                                <td>@movie.Director?.FullName</td>
+                                <td>@movie.Producer?.Name</td>
+                                <td>@string.Join(", ", movie.Stars.Select(s => s.FullName))</td>
+                                <td>
+                                    <a href="#" class="text-danger" onclick="deleteMovie(@movie.Id)">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/movieHub")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            connection.on("MovieDeleted", function (movieId) {
+                $('#movie-' + movieId).remove();
+            });
+
+            connection.start()
+                .then(() => console.log('SignalR connected'))
+                .catch(error => console.error('SignalR connection failed: ', error));
+
+            window.deleteMovie = function (movieId) {
+                if (confirm('Are you sure you want to delete this movie?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Movies/Director_Movie?handler=Delete',
+                        data: { id: movieId },
+                        headers: {
+                            "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function() {
+                        },
+                        error: function(error) {
+                            console.error('Delete failed: ', error);
+                        }
+                    });
+                }
+            };
+        });
+    </script>
+</body>
+</html>
